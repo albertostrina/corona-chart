@@ -17,11 +17,15 @@
 
 <body>
     <div class="container">
-        <canvas id="myChart"></canvas>
+        <canvas id="contagiatiAttuali"></canvas>
+        <canvas id="guariti"></canvas>
     </div>
   <script type='text/javascript'>
-  var ctx = document.getElementById('myChart').getContext('2d');
-var myChart = new Chart(ctx, {
+
+  <!-- CONTAGIATI ATTUALI -->
+
+  var contagiatiAttuali = document.getElementById('contagiatiAttuali').getContext('2d');
+  var contagiatiAttuali = new Chart(contagiatiAttuali, {
     type: 'line',
     data: {
         labels: [{% for g in giorni %}"{{g[0]}}",{%endfor%}],
@@ -57,6 +61,47 @@ var myChart = new Chart(ctx, {
         }
     }
 });
+
+  <!--GUARIGIONI-->
+
+  var guariti = document.getElementById('guariti').getContext('2d');
+  var guariti = new Chart(guariti, {
+    type: 'line',
+    data: {
+        labels: [{% for g in giorni %}"{{g[0]}}",{%endfor%}],
+        datasets: [{
+            label: 'numero di guariti',
+            data: [{% for r in report %}{{r[5]}},{%endfor%}],
+            backgroundColor: [
+                'rgba(154, 213, 142, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(104, 177, 89, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
   </script>
 </body>
 </html>
